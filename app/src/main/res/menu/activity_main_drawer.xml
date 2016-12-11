@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_utaipei"
+            android:icon="@drawable/graduation"
+            android:title="Utaipei" />
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/house"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_station"
+            android:icon="@drawable/transport"
+            android:title="Taipei Main Station" />
+        <item
+            android:id="@+id/nav_ximending"
+            android:icon="@drawable/video"
+            android:title="Ximending" />
+    </group>
+
+
+</menu>
