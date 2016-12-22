@@ -13,8 +13,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import com.aigestudio.wheelpicker.WheelPicker;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,WheelPicker.OnItemSelectedListener  {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        WheelPicker wheelCenter = (WheelPicker) findViewById(R.id.main_wheel_center);
+        wheelCenter.setOnItemSelectedListener(this);
     }
 
 
@@ -99,5 +103,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onItemSelected(WheelPicker picker, Object data, int position) {
+        //String text = "";
+        //switch (picker.getId()) {
+        //case R.id.main_wheel_left:
+        //    text = "Left:";
+        //    break;
+        //   case R.id.main_wheel_center:
+        //    text = "Center:";
+        //       break;
+        //case R.id.main_wheel_right:
+        //    text = "Right:";
+        //    break;
+        //}
+        //Toast.makeText(this, text + String.valueOf(data), Toast.LENGTH_SHORT).show();
     }
 }
