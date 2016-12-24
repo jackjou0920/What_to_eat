@@ -41,15 +41,18 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainContentVie
         this.mItemOnClickListener = onItemClickListener;
     }
 
+    /*建立 view，並將 view 轉成 ViewHolder*/
     @Override
     public MainContentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new MainContentViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_main, parent, false));
     }
-
+    /*更新 view*/
     @Override
     public void onBindViewHolder(MainContentViewHolder holder, int position) {
+
         holder.setData();
     }
+
 
     @Override
     public int getItemCount() {

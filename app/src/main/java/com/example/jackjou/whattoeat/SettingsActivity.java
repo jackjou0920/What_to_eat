@@ -36,11 +36,11 @@ public class SettingsActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(mainAdapter);
 
         mainAdapter = new MainAdapter(list);
         mainAdapter.setOnItemClickListener(onItemClickListener);
 
-        recyclerView.setAdapter(mainAdapter);
 
         // 模擬數據
         list = new ArrayList<>();
@@ -60,9 +60,7 @@ public class SettingsActivity extends AppCompatActivity {
         itemTouchHelper.setSwipeEnable(true);
     }
 
-    private DefaultItemTouchHelpCallback.OnItemTouchCallbackListener onItemTouchCallbackListener =
-            new DefaultItemTouchHelpCallback.OnItemTouchCallbackListener() {
-
+    private DefaultItemTouchHelpCallback.OnItemTouchCallbackListener onItemTouchCallbackListener = new DefaultItemTouchHelpCallback.OnItemTouchCallbackListener() {
         @Override
         public void onSwiped(int adapterPosition) {
             if (list != null) {
