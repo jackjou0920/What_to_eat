@@ -41,18 +41,15 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainContentVie
         this.mItemOnClickListener = onItemClickListener;
     }
 
-    /*建立 view，並將 view 轉成 ViewHolder*/
     @Override
     public MainContentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new MainContentViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_main, parent, false));
     }
-    /*更新 view*/
+
     @Override
     public void onBindViewHolder(MainContentViewHolder holder, int position) {
-
         holder.setData();
     }
-
 
     @Override
     public int getItemCount() {
@@ -69,16 +66,16 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainContentVie
 
 
     class MainContentViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnTouchListener {
-        /*名字和備註*/
-        private TextView name, remark;
+        /*名字和性别*/
+        private TextView mName, mRemark;
         /*觸摸就可以拖拽*/
         private ImageView mIvTouch;
 
         public MainContentViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
-            name = (TextView) itemView.findViewById(R.id.name);
-            remark = (TextView) itemView.findViewById(R.id.remark);
+            mName = (TextView) itemView.findViewById(R.id.name);
+            mRemark = (TextView) itemView.findViewById(R.id.remark);
             mIvTouch = (ImageView) itemView.findViewById(R.id.iv_touch);
             mIvTouch.setOnTouchListener(this);
         }
@@ -86,8 +83,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainContentVie
         /*给這個Item设置數據*/
         public void setData() {
             FoodList foodLists = getData(getAdapterPosition());
-            name.setText(foodLists.getName());
-            remark.setText(foodLists.getRemark());
+            mName.setText(foodLists.getName());
+            mRemark.setText(foodLists.getRemark());
         }
 
         @Override
