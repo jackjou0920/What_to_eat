@@ -66,16 +66,16 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainContentVie
 
 
     class MainContentViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnTouchListener {
-        /*名字和性别*/
-        private TextView mTvName, mTvSex;
+        /*名字和備註*/
+        private TextView name, remark;
         /*觸摸就可以拖拽*/
         private ImageView mIvTouch;
 
         public MainContentViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
-            mTvName = (TextView) itemView.findViewById(R.id.tv_name);
-            mTvSex = (TextView) itemView.findViewById(R.id.tv_sex);
+            name = (TextView) itemView.findViewById(R.id.name);
+            remark = (TextView) itemView.findViewById(R.id.remark);
             mIvTouch = (ImageView) itemView.findViewById(R.id.iv_touch);
             mIvTouch.setOnTouchListener(this);
         }
@@ -83,8 +83,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainContentVie
         /*给這個Item设置數據*/
         public void setData() {
             FoodList foodLists = getData(getAdapterPosition());
-            mTvName.setText(foodLists.getName());
-            mTvSex.setText(foodLists.getSex());
+            name.setText(foodLists.getName());
+            remark.setText(foodLists.getRemark());
         }
 
         @Override

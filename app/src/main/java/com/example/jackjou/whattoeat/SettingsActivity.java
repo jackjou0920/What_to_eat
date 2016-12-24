@@ -26,6 +26,7 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         recyclerView = (RecyclerView) findViewById(R.id.rv_main);
@@ -59,7 +60,9 @@ public class SettingsActivity extends AppCompatActivity {
         itemTouchHelper.setSwipeEnable(true);
     }
 
-    private DefaultItemTouchHelpCallback.OnItemTouchCallbackListener onItemTouchCallbackListener = new DefaultItemTouchHelpCallback.OnItemTouchCallbackListener() {
+    private DefaultItemTouchHelpCallback.OnItemTouchCallbackListener onItemTouchCallbackListener =
+            new DefaultItemTouchHelpCallback.OnItemTouchCallbackListener() {
+
         @Override
         public void onSwiped(int adapterPosition) {
             if (list != null) {
@@ -81,6 +84,8 @@ public class SettingsActivity extends AppCompatActivity {
             return false;
         }
     };
+
+
 
     /*RecyclerView的Item點擊監聽*/
     private MainAdapter.OnItemClickListener onItemClickListener = new MainAdapter.OnItemClickListener() {

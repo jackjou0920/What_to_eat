@@ -8,12 +8,12 @@ public class FoodList {
 
     /*名字*/
     private String name;
-    /*性别*/
-    private String sex;
+    /*備註*/
+    private String remark;
 
-    public FoodList(String name, String sex) {
+    public FoodList(String name, String remark) {
         this.name = name;
-        this.sex = sex;
+        this.remark = remark;
     }
     public String getName(){
         return name;
@@ -23,12 +23,12 @@ public class FoodList {
         this.name = name;
     }
 
-    public String getSex(){
-        return sex;
+    public String getRemark(){
+        return remark;
     }
 
-    public void setSex(String sex){
-        this.sex = sex;
+    public void setRemark(String sex){
+        this.remark = remark;
     }
 
 }
