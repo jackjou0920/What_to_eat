@@ -6,14 +6,23 @@ package com.example.jackjou.whattoeat;
 
 public class FoodList {
 
+    private int id;
     /*名字*/
     private String name;
     /*備註*/
-    private String remark;
+    private String note;
 
-    public FoodList(String name, String remark) {
+    public FoodList(int id, String name, String note) {
+        this.id = id;
         this.name = name;
-        this.remark = remark;
+        this.note = note;
+    }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
     public String getName(){
         return name;
@@ -23,12 +32,12 @@ public class FoodList {
         this.name = name;
     }
 
-    public String getRemark(){
-        return remark;
+    public String getNote(){
+        return note;
     }
 
-    public void setRemark(String sex){
-        this.remark = remark;
+    public void setRemark(String note){
+        this.note = note;
     }
 
 }
