@@ -1,6 +1,7 @@
 package com.example.jackjou.whattoeat;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -41,11 +42,24 @@ public class MainAdapter extends RecyclerView.Adapter<MyHolder>{
         holder.name.setText(list.get(position).getName());
         holder.note.setText(list.get(position).getNote());
 
-        //CLICKED
+        //HANDLE ITEMCLICKS
         holder.setItemClickListener(new ItemClickListener() {
             @Override
             public void onItemClick(View v, int pos) {
-                Snackbar.make(v,list.get(pos).getName(),Snackbar.LENGTH_SHORT).show();
+                //OPEN DETAIL ACTIVITY
+                //PASS DATA
+
+                //CREATE INTENT
+                Intent i = new Intent(c,DetailActivity.class);
+
+                //LOAD DATA
+                i.putExtra("NAME",list.get(pos).getName());
+                i.putExtra("NOTE",list.get(pos).getNote());
+                i.putExtra("ID",list.get(pos).getId());
+
+                //START ACTIVITY
+                c.startActivity(i);
+
             }
         });
 

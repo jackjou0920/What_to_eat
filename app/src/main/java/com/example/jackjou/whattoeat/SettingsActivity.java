@@ -28,7 +28,6 @@ public class SettingsActivity extends AppCompatActivity {
 
     EditText nameText;
     EditText noteText;
-    ImageButton deletText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -180,6 +179,12 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         db.closeDB();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        retrieve();
     }
 
 }

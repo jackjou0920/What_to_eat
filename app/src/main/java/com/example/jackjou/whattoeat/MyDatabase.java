@@ -40,16 +40,48 @@ public class MyDatabase {
 
     //CLOSE DATABASE
     public void closeDB(){
+
         db.close();
     }
 
     //INSERT
     public long addDB(String name, String note){
-        ContentValues cv=new ContentValues();
-        cv.put(NAME, name);
-        cv.put(NOTE, note);
+        try {
+            ContentValues cv = new ContentValues();
+            cv.put(NAME, name);
+            cv.put(NOTE, note);
 
-        return db.insert(TB_NAME, ID, cv);
+            return db.insert(TB_NAME, ID, cv);
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    //UPDATE
+    public long UPDATE(int id,String name,String note){
+        try{
+            ContentValues cv = new ContentValues();
+            cv.put(NAME, name);
+            cv.put(NOTE, note);
+
+            return db.update(TB_NAME, cv, ID+" =?", new String[]{String.valueOf(id)});
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    //DELETE
+    public long Delete(int id){
+        try{
+            return db.delete(TB_NAME, ID+" =?", new String[]{String.valueOf(id)});
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     //RETRIEVE
