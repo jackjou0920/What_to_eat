@@ -24,10 +24,10 @@ public class DetailActivity extends AppCompatActivity {
         final String note = i.getExtras().getString("NOTE");
         final int id = i.getExtras().getInt("ID");
 
-        updateBtn= (Button) findViewById(R.id.updateBtn);
-        deleteBtn= (Button) findViewById(R.id.deleteBtn);
-        nameText= (EditText) findViewById(R.id.nameEdit);
-        noteText= (EditText) findViewById(R.id.noteEdit);
+        updateBtn = (Button) findViewById(R.id.updateBtn);
+        deleteBtn = (Button) findViewById(R.id.deleteBtn);
+        nameText = (EditText) findViewById(R.id.nameEdit);
+        noteText = (EditText) findViewById(R.id.noteEdit);
 
         //ASSIGN DATA TO THOSE VIEWS
         nameText.setText(name);
@@ -38,6 +38,7 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 update(id, nameText.getText().toString(), noteText.getText().toString());
+                finish();
             }
         });
 
@@ -73,7 +74,7 @@ public class DetailActivity extends AppCompatActivity {
     private void delete(int id) {
         MyDatabase db = new MyDatabase(this);
         db.openDB();
-        long result=db.Delete(id);
+        long result = db.Delete(id);
 
         if(result > 0){
             this.finish();

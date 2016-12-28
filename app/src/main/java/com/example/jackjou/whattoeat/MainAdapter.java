@@ -50,7 +50,7 @@ public class MainAdapter extends RecyclerView.Adapter<MyHolder>{
                 //PASS DATA
 
                 //CREATE INTENT
-                Intent i = new Intent(c,DetailActivity.class);
+                Intent i = new Intent(c, DetailActivity.class);
 
                 //LOAD DATA
                 i.putExtra("NAME",list.get(pos).getName());
