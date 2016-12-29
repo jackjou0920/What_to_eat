@@ -1,6 +1,7 @@
 package com.example.jackjou.whattoeat;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -10,10 +11,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.aigestudio.wheelpicker.WheelPicker;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,WheelPicker.OnItemSelectedListener  {
+
+    private ArrayList<String> PickerData = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +48,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         WheelPicker wheelCenter = (WheelPicker) findViewById(R.id.main_wheel_center);
         wheelCenter.setOnItemSelectedListener(this);
+
+        setPickerData(wheelCenter);
     }
 
 
@@ -117,6 +125,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //    text = "Right:";
         //    break;
         //}
-        //Toast.makeText(this, text + String.valueOf(data), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,  String.valueOf(data), Toast.LENGTH_SHORT).show();
+    }
+
+    public void setPickerData(WheelPicker wheelCenter){
+
+        MyDatabase db = new MyDatabase(this);
+        db.openDB();
+
+        //RETRIEVE
+        Cursor c = db.getAll();
+        //Cursor cu = db.rawQuery("SELECT * FROM ",null);
+        //LOOP AND ADD TO ARRAYLIST
+        while (c.moveToNext()){
+            //int id = c.getInt(0);
+            String name = c.getString(1);
+            //String note = c.getString(2);
+
+            //FoodList p = new FoodList(id, name, note);
+            PickerData.add(name);
+
+        }
+        db.closeDB();
+
+        wheelCenter.setData(PickerData);
     }
 }
