@@ -25,9 +25,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
-
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener  {
 
     private ArrayList<String> PickerData = new ArrayList<>();
     private WheelPicker wheelPicker;
@@ -65,9 +63,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 //        WheelPicker wheelCenter = (WheelPicker) findViewById(R.id.main_wheel_center);
 //        wheelCenter.setOnItemSelectedListener(this);
-
-
-
+//
 
         wheelPicker = (WheelPicker) findViewById(R.id.wheelPicker);
         actionBtn = (Button) findViewById(R.id.start);
@@ -175,8 +171,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        Toast.makeText(this,  String.valueOf(data), Toast.LENGTH_SHORT).show();
 //    }
 
-
-    public void setPickerData(WheelPicker wheelCenter){
+    public void setPickerData(WheelPicker wheelPicker){
 
         MyDatabase db = new MyDatabase(this);
         db.openDB();
@@ -197,36 +192,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         db.closeDB();
 
         wheelPicker.setData(PickerData);
-    }
-
-    private void initWheelPicker(){
-        List<String> data = new ArrayList<>();
-        data.add("Hello");
-        data.add("Hey");
-        data.add("Hi");
-        count = data.size();
-
-        wheelPicker.setData(data);
-        wheelPicker.setCyclic(true);
-        wheelPicker.setSelectedItemTextColor(ContextCompat.getColor(this, R.color.red));
-        wheelPicker.setIndicator(true);
-        wheelPicker.setSelectedItemPosition(position);
-    }
-
-    private class OnActionClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(View v) {
-            if(isRunning){
-                scheduler.shutdownNow();
-                scheduler = new ScheduledThreadPoolExecutor((Runtime.getRuntime().availableProcessors()));
-                actionBtn.setText("Start");
-            }
-            else{
-                scheduler.scheduleWithFixedDelay(runnable, 0, 40, TimeUnit.MILLISECONDS);
-                actionBtn.setText("Stop");
-            }
-            isRunning = !isRunning;
-        }
     }
 
     private void initWheelPicker(){
