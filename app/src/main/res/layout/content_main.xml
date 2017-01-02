@@ -15,20 +15,10 @@
     tools:showIn="@layout/app_bar_main">
 
     <com.aigestudio.wheelpicker.WheelPicker
-        android:id="@+id/main_wheel_center"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:background="#ffffbb"
-        aigestudio:wheel_atmospheric="true"
-        aigestudio:wheel_curved="true"
-        aigestudio:wheel_cyclic="true"
-        aigestudio:wheel_item_text_color="#9f88ff"
-        aigestudio:wheel_item_text_size="28sp"
-        aigestudio:wheel_selected_item_text_color="#220088"
-        android:rotation="0.0"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="86dp"
-        />
+        android:id="@+id/wheelPicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:text="START"
