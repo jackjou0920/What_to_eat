@@ -35,7 +35,8 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        //save("123","456");
+        //save("qqq","45q6");
         //add item
         FloatingActionButton add = (FloatingActionButton) findViewById(R.id.add);
         add.setOnClickListener(new View.OnClickListener() {

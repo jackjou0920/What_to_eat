@@ -192,20 +192,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         db.closeDB();
 
         wheelPicker.setData(PickerData);
+        count = PickerData.size();
     }
 
     private void initWheelPicker(){
-        List<String> data = new ArrayList<>();
-        data.add("Hello");
-        data.add("Hey");
-        data.add("Hi");
-        count = data.size();
-
-        wheelPicker.setData(data);
+//        List<String> data = new ArrayList<>();
+//        data.add("Hello");
+//        data.add("Hey");
+//        data.add("Hi");
+//        count = data.size();
+//
+//        wheelPicker.setData(data);
         wheelPicker.setCyclic(true);
         wheelPicker.setSelectedItemTextColor(ContextCompat.getColor(this, R.color.red));
         wheelPicker.setIndicator(true);
         wheelPicker.setSelectedItemPosition(position);
+        wheelPicker.setCurved(true);
+        wheelPicker.setAtmospheric(true);
+        wheelPicker.setItemTextSize(100);
+        wheelPicker.setCurtainColor(ContextCompat.getColor(this, R.color.white));
+        //wheelPicker.setCurtain(true);
     }
 
     private class OnActionClickListener implements View.OnClickListener {
