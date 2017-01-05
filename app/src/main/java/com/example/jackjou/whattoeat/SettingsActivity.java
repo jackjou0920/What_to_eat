@@ -24,7 +24,7 @@ public class SettingsActivity extends AppCompatActivity {
     //數據適配器
     private MainAdapter mainAdapter;
     //滑動拖拽的幫助類
-    //private DefaultItemTouchHelper itemTouchHelper;
+
 
     EditText nameText;
     EditText noteText;
@@ -35,9 +35,7 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //save("123","456");
-        //save("qqq","45q6");
-        //add item
+
         FloatingActionButton add = (FloatingActionButton) findViewById(R.id.add);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,66 +48,14 @@ public class SettingsActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.rv_main);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        // 必須要设置一个佈局管理器
-//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-//        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         mainAdapter = new MainAdapter(this, list);
-//        mainAdapter.setOnItemClickListener(onItemClickListener);
 
-//        recyclerView.setAdapter(mainAdapter);
-
-
-//        itemTouchHelper = new DefaultItemTouchHelper(onItemTouchCallbackListener);
-//        itemTouchHelper.attachToRecyclerView(recyclerView);
-//
-//        mainAdapter.setItemTouchHelper(itemTouchHelper);
-//
-//        itemTouchHelper.setDragEnable(true);
-//        itemTouchHelper.setSwipeEnable(true);
-
-//        deletText = (ImageButton)findViewById(R.id.delete);
-
-//        deletText.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
+        //save("111","111");
         retrieve();
     }
 
-//    private DefaultItemTouchHelpCallback.OnItemTouchCallbackListener onItemTouchCallbackListener = new DefaultItemTouchHelpCallback.OnItemTouchCallbackListener() {
-//        @Override
-//        public void onSwiped(int adapterPosition) {
-//            if (list != null) {
-//                list.remove(adapterPosition);
-//                mainAdapter.notifyItemRemoved(adapterPosition);
-//            }
-//        }
-//
-//        @Override
-//        public boolean onMove(int srcPosition, int targetPosition) {
-//            if (list != null) {
-//                // 更換數源中的數據Item的位置
-//                Collections.swap(list, srcPosition, targetPosition);
-//
-//                // 更新UI中的Item的位置，主要是给用户看到交互效果
-//                mainAdapter.notifyItemMoved(srcPosition, targetPosition);
-//                return true;
-//            }
-//            return false;
-//        }
-//    };
-
-    /*RecyclerView的Item點擊監聽*/
-//    private MainAdapter.OnItemClickListener onItemClickListener = new MainAdapter.OnItemClickListener() {
-//        @Override
-//        public void onItemClick(View view, int position) {
-//            Toast.makeText(SettingsActivity.this, "第" + position + "被點擊", Toast.LENGTH_SHORT).show();
-//        }
-//    };
 
 
     private void addFood(){
