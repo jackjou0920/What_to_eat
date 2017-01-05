@@ -143,22 +143,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-//    @Override
-//    public void onItemSelected(WheelPicker picker, Object data, int position) {
-//        //String text = "";
-//        //switch (picker.getId()) {
-//        //case R.id.main_wheel_left:
-//        //    text = "Left:";
-//        //    break;
-//        //   case R.id.main_wheel_center:
-//        //    text = "Center:";
-//        //       break;
-//        //case R.id.main_wheel_right:
-//        //    text = "Right:";
-//        //    break;
-//        //}
-//        Toast.makeText(this,  String.valueOf(data), Toast.LENGTH_SHORT).show();
-//    }
 
     public void setPickerData(WheelPicker wheelPicker){
 
@@ -194,7 +178,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         wheelPicker.setAtmospheric(true);
         wheelPicker.setItemTextSize(100);
         wheelPicker.setCurtainColor(ContextCompat.getColor(this, R.color.white));
-        //wheelPicker.setCurtain(true);
     }
 
     private class OnActionClickListener implements View.OnClickListener {
