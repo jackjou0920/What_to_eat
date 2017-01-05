@@ -52,7 +52,9 @@ public class SettingsActivity extends AppCompatActivity {
 
         mainAdapter = new MainAdapter(this, list);
 
-        //save("111","111");
+//        save("111","111");
+//        save("222","222");
+
         retrieve();
     }
 
