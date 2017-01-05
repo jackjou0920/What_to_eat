@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         };
 
+
         setPickerData(wheelPicker);
     }
 
@@ -184,13 +185,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void initWheelPicker(){
-//        List<String> data = new ArrayList<>();
-//        data.add("Hello");
-//        data.add("Hey");
-//        data.add("Hi");
-//        count = data.size();
-//
-//        wheelPicker.setData(data);
+
         wheelPicker.setCyclic(true);
         wheelPicker.setSelectedItemTextColor(ContextCompat.getColor(this, R.color.red));
         wheelPicker.setIndicator(true);

@@ -18,13 +18,11 @@ import android.widget.ImageButton;
 import java.util.ArrayList;
 
 public class SettingsActivity extends AppCompatActivity {
-
     private RecyclerView recyclerView;
+    //data array
     private ArrayList<FoodList> list = new ArrayList<>();
     //數據適配器
     private MainAdapter mainAdapter;
-    //滑動拖拽的幫助類
-
 
     EditText nameText;
     EditText noteText;
@@ -36,6 +34,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        //開啟新增資料視窗
         FloatingActionButton add = (FloatingActionButton) findViewById(R.id.add);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +58,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
 
-
+    //新增資料浮動視窗
     private void addFood(){
 
         final View item = LayoutInflater.from(SettingsActivity.this).inflate(R.layout.custom_layout, null);
@@ -68,15 +67,19 @@ public class SettingsActivity extends AppCompatActivity {
                 .setPositiveButton("Save", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        //取得店家名稱
                         nameText = (EditText) item.findViewById(R.id.nameEdit);
+                        //取得店家註解
                         noteText = (EditText) item.findViewById(R.id.noteEdit);
 
+                        //把兩個字串傳入save()
                         save(nameText.getText().toString(), noteText.getText().toString());
                     }
                 })
                 .show();
     }
 
+    //儲存資料到database
     private void save(String name,String note){
         MyDatabase db = new MyDatabase(this);
 
@@ -90,8 +93,10 @@ public class SettingsActivity extends AppCompatActivity {
             nameText.setText("");
             noteText.setText("");
         }
-        else{
-            Snackbar.make(nameText,"Unable To Save",Snackbar.LENGTH_SHORT).show();
+        else if( result == 0){
+
+
+            //Snackbar.make(nameText,"Unable To Save",Snackbar.LENGTH_SHORT).show();
         }
 
         db.closeDB();
