@@ -1,10 +1,8 @@
 package com.example.jackjou.whattoeat;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -12,18 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.aigestudio.wheelpicker.WheelPicker;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener  {
 
@@ -52,36 +44,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
-        wheelPicker = (WheelPicker) findViewById(R.id.wheelPicker);
-        actionBtn = (Button) findViewById(R.id.start);
-        actionBtn.setOnClickListener(new OnActionClickListener());
-
-        isRunning = false;
-        position = 0;
-        scheduler = Executors.newScheduledThreadPool((Runtime.getRuntime().availableProcessors()));
-
-        initWheelPicker();
-
-        runnable = new Runnable() {
-            @Override
-            public void run() {
-                if (position < count) {
-                    position++;
-                } else {
-                    position = 0;
-                }
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        wheelPicker.setSelectedItemPosition(position);
-                    }
-                });
-            }
-        };
-
-
-        setPickerData(wheelPicker);
     }
 
 
@@ -141,58 +103,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-
-    public void setPickerData(WheelPicker wheelPicker){
-
-        MyDatabase db = new MyDatabase(this);
-        db.openDB();
-
-        //RETRIEVE
-        Cursor c = db.getAll();
-        //Cursor cu = db.rawQuery("SELECT * FROM ",null);
-        //LOOP AND ADD TO ARRAYLIST
-        while (c.moveToNext()){
-            //int id = c.getInt(0);
-            String name = c.getString(1);
-            //String note = c.getString(2);
-
-            //FoodList p = new FoodList(id, name, note);
-            PickerData.add(name);
-
-        }
-        db.closeDB();
-
-        wheelPicker.setData(PickerData);
-        count = PickerData.size();
-    }
-
-    private void initWheelPicker(){
-
-        wheelPicker.setCyclic(true);
-        wheelPicker.setSelectedItemTextColor(ContextCompat.getColor(this, R.color.red));
-        wheelPicker.setIndicator(true);
-        wheelPicker.setSelectedItemPosition(position);
-        wheelPicker.setCurved(true);
-        wheelPicker.setAtmospheric(true);
-        wheelPicker.setItemTextSize(100);
-        wheelPicker.setCurtainColor(ContextCompat.getColor(this, R.color.white));
-    }
-
-    private class OnActionClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(View v) {
-            if(isRunning){
-                scheduler.shutdownNow();
-                scheduler = new ScheduledThreadPoolExecutor((Runtime.getRuntime().availableProcessors()));
-                actionBtn.setText("Start");
-            }
-            else{
-                scheduler.scheduleWithFixedDelay(runnable, 0, 40, TimeUnit.MILLISECONDS);
-                actionBtn.setText("Stop");
-            }
-            isRunning = !isRunning;
-        }
     }
 }

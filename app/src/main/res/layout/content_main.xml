@@ -15,14 +15,7 @@
     tools:context="com.example.jackjou.whattoeat.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-    <com.aigestudio.wheelpicker.WheelPicker
-        android:id="@+id/wheelPicker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp"
-        android:background="#FFFFFF"
-        />
+
 
     <Button
         android:text="START"
