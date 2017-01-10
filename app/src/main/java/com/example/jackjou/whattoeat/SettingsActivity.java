@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -13,7 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageButton;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -71,9 +70,17 @@ public class SettingsActivity extends AppCompatActivity {
                         nameText = (EditText) item.findViewById(R.id.nameEdit);
                         //取得店家註解
                         noteText = (EditText) item.findViewById(R.id.noteEdit);
+                        if(nameText.length() <= 0){
+                            Toast.makeText(SettingsActivity.this, "店家名稱不能是空滴喔^3^", Toast.LENGTH_SHORT).show();
+                        }
+                        else if(nameText.getText().toString().trim().isEmpty()){
+                            Toast.makeText(SettingsActivity.this, "店家名稱不能是空格喔^3^", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            //把兩個字串傳入save()
+                            save(nameText.getText().toString(), noteText.getText().toString());
+                        }
 
-                        //把兩個字串傳入save()
-                        save(nameText.getText().toString(), noteText.getText().toString());
                     }
                 })
                 .show();
@@ -86,18 +93,7 @@ public class SettingsActivity extends AppCompatActivity {
         //OPEN DB
         db.openDB();
 
-        //COMMIT
-        long result = db.addDB(name,note);
-
-        if(result > 0){
-            nameText.setText("");
-            noteText.setText("");
-        }
-        else if( result == 0){
-
-
-            //Snackbar.make(nameText,"Unable To Save",Snackbar.LENGTH_SHORT).show();
-        }
+        db.addDB(name,note);
 
         db.closeDB();
 
