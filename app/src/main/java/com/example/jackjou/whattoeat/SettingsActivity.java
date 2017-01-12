@@ -94,17 +94,7 @@ public class SettingsActivity extends AppCompatActivity {
         db.openDB();
 
         //COMMIT
-        long result = db.addDB(TBName,name,note);
-
-        if(result > 0){
-            nameText.setText("");
-            noteText.setText("");
-        }
-        else if( result == 0){
-
-
-            //Snackbar.make(nameText,"Unable To Save",Snackbar.LENGTH_SHORT).show();
-        }
+        db.addDB(TBName,name,note);
 
         db.closeDB();
 

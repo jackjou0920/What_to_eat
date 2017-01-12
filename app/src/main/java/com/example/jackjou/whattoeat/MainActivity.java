@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity
     private Runnable runnable2;
     private SharedPreferences sp;
     private static final String data = "DATA";
-
+    private boolean first = true;
     private boolean halt;
     Thread thread;
 
@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity
         waittime();
         sp = getSharedPreferences(data,0);
         TBName = sp.getString("tb", "");
+        Toast.makeText(MainActivity.this, TBName, Toast.LENGTH_SHORT).show();
         //wheelPicker.setOnItemSelectedListener();
         setPickerData(wheelPicker);
     }
@@ -178,37 +179,45 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void setPickerData(WheelPicker wheelPicker){
-        PickerData.clear();
-        MyDatabase db = new MyDatabase(this);
-        db.openDB();
+        if(first){
+            PickerData.add("請輸入店家");
+            wheelPicker.setData(PickerData);
+            count = PickerData.size();
+            first = false;
+            TBName = "d_TB";
+            sp = getSharedPreferences(data,0);
+            sp.edit().putString("tb", TBName).commit();
+        }
+        else {
 
-        //RETRIEVE
-        Cursor c = db.getAll(TBName);
-        //Cursor cu = db.rawQuery("SELECT * FROM ",null);
-        //LOOP AND ADD TO ARRAYLIST
-        while (c.moveToNext()){
-            //int id = c.getInt(0);
-            String name = c.getString(1);
-            //String note = c.getString(2);
 
-            //FoodList p = new FoodList(id, name, note);
-            PickerData.add(name);
+            PickerData.clear();
+            MyDatabase db = new MyDatabase(this);
+            db.openDB();
+
+            //RETRIEVE
+            Cursor c = db.getAll(TBName);
+            //Cursor cu = db.rawQuery("SELECT * FROM ",null);
+            //LOOP AND ADD TO ARRAYLIST
+            while (c.moveToNext()) {
+                //int id = c.getInt(0);
+                String name = c.getString(1);
+                //String note = c.getString(2);
+
+                //FoodList p = new FoodList(id, name, note);
+                PickerData.add(name);
+
+            }
+            db.closeDB();
+
+            wheelPicker.setData(PickerData);
+            count = PickerData.size();
 
         }
-        db.closeDB();
 
-        wheelPicker.setData(PickerData);
-        count = PickerData.size();
     }
 
     private void initWheelPicker(){
-//        List<String> data = new ArrayList<>();
-//        data.add("Hello");
-//        data.add("Hey");
-//        data.add("Hi");
-//        count = data.size();
-//
-//        wheelPicker.setData(data);
         wheelPicker.setCyclic(true);
         wheelPicker.setSelectedItemTextColor(ContextCompat.getColor(this, R.color.red));
         wheelPicker.setIndicator(true);
@@ -217,23 +226,12 @@ public class MainActivity extends AppCompatActivity
         wheelPicker.setAtmospheric(true);
         wheelPicker.setItemTextSize(100);
         wheelPicker.setCurtainColor(ContextCompat.getColor(this, R.color.white));
-        //wheelPicker.setCurtain(true);
-
     }
 
     private class OnActionClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-//            if(isRunning){
-//                scheduler.shutdownNow();
-//                scheduler = new ScheduledThreadPoolExecutor((Runtime.getRuntime().availableProcessors()));
-//                actionBtn.setText("Start");
-//            }
-//            else{
             scheduler.scheduleWithFixedDelay(runnable, 0, 40, TimeUnit.MILLISECONDS);
-//                actionBtn.setText("Stop");
-//            }
-//            isRunning = !isRunning;
         }
     }
 
