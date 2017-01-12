@@ -5,10 +5,10 @@ import android.view.View;
 import android.widget.TextView;
 
 /**
- * Created by JackJou on 2016/12/26.
+ * Created by JackJou on 2017/1/6.
  */
 
-public class MyHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class MyHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
     TextView name, note;
     ItemClickListener itemClickListener;
@@ -30,5 +30,4 @@ public class MyHolder extends RecyclerView.ViewHolder implements View.OnClickLis
     public void setItemClickListener(ItemClickListener ic) {
         this.itemClickListener = ic;
     }
-
 }

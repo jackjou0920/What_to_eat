@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -23,6 +24,7 @@ public class DetailActivity extends AppCompatActivity {
         final String name = i.getExtras().getString("NAME");
         final String note = i.getExtras().getString("NOTE");
         final int id = i.getExtras().getInt("ID");
+        final String TBName = i.getExtras().getString("TB");
 
         updateBtn = (Button) findViewById(R.id.updateBtn);
         deleteBtn = (Button) findViewById(R.id.deleteBtn);
@@ -37,7 +39,16 @@ public class DetailActivity extends AppCompatActivity {
         updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                update(id, nameText.getText().toString(), noteText.getText().toString());
+                if(nameText.length() <= 0){
+                    Toast.makeText(DetailActivity.this, "店家名稱不能是空滴喔^3^", Toast.LENGTH_SHORT).show();
+                }
+                else if(nameText.getText().toString().trim().isEmpty()){
+                    Toast.makeText(DetailActivity.this, "店家名稱不能是空格喔^3^", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    update(TBName, id, nameText.getText().toString(), noteText.getText().toString());
+                }
+
                 finish();
             }
         });
@@ -47,16 +58,16 @@ public class DetailActivity extends AppCompatActivity {
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                delete(id);
+                delete(TBName, id);
             }
         });
     }
 
-    private void update(int id, String newName, String newNote){
+    private void update(String TBName, int id, String newName, String newNote){
         MyDatabase db = new MyDatabase(this);
 
         db.openDB();
-        long result = db.UPDATE(id,newName,newNote);
+        long result = db.UPDATE(TBName,id,newName,newNote);
 
         if(result > 0){
             nameText.setText(newName);
@@ -71,10 +82,10 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     //DELETE
-    private void delete(int id) {
+    private void delete(String TBName, int id) {
         MyDatabase db = new MyDatabase(this);
         db.openDB();
-        long result = db.Delete(id);
+        long result = db.Delete(TBName, id);
 
         if(result > 0){
             this.finish();
@@ -85,6 +96,4 @@ public class DetailActivity extends AppCompatActivity {
 
         db.closeDB();
     }
-
-
 }

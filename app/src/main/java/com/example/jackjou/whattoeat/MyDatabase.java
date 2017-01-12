@@ -7,7 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 /**
- * Created by JackJou on 2016/12/25.
+ * Created by JackJou on 2017/1/6.
  */
 
 public class MyDatabase {
@@ -19,7 +19,13 @@ public class MyDatabase {
     static final String NAME = "name";
     static final String NOTE = "note";
 
-    static final String CREATE_TB="CREATE TABLE d_TB(id INTEGER PRIMARY KEY AUTOINCREMENT,"
+    static final String CREATE_TB ="create table IF NOT EXISTS d_TB(id INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + "name TEXT NOT NULL,note TEXT NOT NULL);";
+    static final String CREATE_TB2 ="create table IF NOT EXISTS d_TB2(id INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + "name TEXT NOT NULL,note TEXT NOT NULL);";
+    static final String CREATE_TB3 ="create table IF NOT EXISTS d_TB3(id INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + "name TEXT NOT NULL,note TEXT NOT NULL);";
+    static final String CREATE_TB4 ="create table IF NOT EXISTS d_TB4(id INTEGER PRIMARY KEY AUTOINCREMENT,"
             + "name TEXT NOT NULL,note TEXT NOT NULL);";
 
 
@@ -33,6 +39,9 @@ public class MyDatabase {
         db = ctx.openOrCreateDatabase(DB_NAME, 0, null);
         try {
             db.execSQL(CREATE_TB);
+            db.execSQL(CREATE_TB2);
+            db.execSQL(CREATE_TB3);
+            db.execSQL(CREATE_TB4);
         }catch (SQLException e) {
             e.printStackTrace();
         }
@@ -45,13 +54,13 @@ public class MyDatabase {
     }
 
     //INSERT
-    public long addDB(String name, String note){
+    public long addDB(String TBName, String name, String note){
         try {
             ContentValues cv = new ContentValues();
             cv.put(NAME, name);
             cv.put(NOTE, note);
 
-            return db.insert(TB_NAME, ID, cv);
+            return db.insert(TBName, ID, cv);
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -59,13 +68,13 @@ public class MyDatabase {
     }
 
     //UPDATE
-    public long UPDATE(int id,String name,String note){
+    public long UPDATE(String TBName,int id,String name,String note){
         try{
             ContentValues cv = new ContentValues();
             cv.put(NAME, name);
             cv.put(NOTE, note);
 
-            return db.update(TB_NAME, cv, ID+" =?", new String[]{String.valueOf(id)});
+            return db.update(TBName, cv, ID+" =?", new String[]{String.valueOf(id)});
 
         }catch (SQLException e){
             e.printStackTrace();
@@ -74,9 +83,9 @@ public class MyDatabase {
     }
 
     //DELETE
-    public long Delete(int id){
+    public long Delete(String TBName, int id){
         try{
-            return db.delete(TB_NAME, ID+" =?", new String[]{String.valueOf(id)});
+            return db.delete(TBName, ID+" =?", new String[]{String.valueOf(id)});
 
         }catch (SQLException e){
             e.printStackTrace();
@@ -85,11 +94,9 @@ public class MyDatabase {
     }
 
     //RETRIEVE
-    public Cursor getAll() {
+    public Cursor getAll(String table) {
         String[] columns={ID, NAME, NOTE};
 
-        return db.query(TB_NAME,columns,null,null,null,null,null);
+        return db.query(table,columns,null,null,null,null,null);
     }
-
-
 }

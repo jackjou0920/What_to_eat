@@ -1,6 +1,7 @@
 package com.example.jackjou.whattoeat;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -22,6 +23,7 @@ public class SettingsActivity extends AppCompatActivity {
     private ArrayList<FoodList> list = new ArrayList<>();
     //數據適配器
     private MainAdapter mainAdapter;
+    private String TBName;
 
     EditText nameText;
     EditText noteText;
@@ -32,6 +34,8 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Intent intent = getIntent();
+        TBName = intent.getStringExtra("TBName");
 
         //開啟新增資料視窗
         FloatingActionButton add = (FloatingActionButton) findViewById(R.id.add);
@@ -45,17 +49,13 @@ public class SettingsActivity extends AppCompatActivity {
 
         recyclerView = (RecyclerView) findViewById(R.id.rv_main);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mainAdapter = new MainAdapter(this, list);
+        mainAdapter = new MainAdapter(this, list, TBName);
 
-//        save("111","111");
-//        save("222","222");
-
-        retrieve();
+        retrieve(TBName);
+        //save("美食坊","很油很多人");
     }
-
 
     //新增資料浮動視窗
     private void addFood(){
@@ -70,6 +70,7 @@ public class SettingsActivity extends AppCompatActivity {
                         nameText = (EditText) item.findViewById(R.id.nameEdit);
                         //取得店家註解
                         noteText = (EditText) item.findViewById(R.id.noteEdit);
+
                         if(nameText.length() <= 0){
                             Toast.makeText(SettingsActivity.this, "店家名稱不能是空滴喔^3^", Toast.LENGTH_SHORT).show();
                         }
@@ -80,7 +81,6 @@ public class SettingsActivity extends AppCompatActivity {
                             //把兩個字串傳入save()
                             save(nameText.getText().toString(), noteText.getText().toString());
                         }
-
                     }
                 })
                 .show();
@@ -93,23 +93,34 @@ public class SettingsActivity extends AppCompatActivity {
         //OPEN DB
         db.openDB();
 
-        db.addDB(name,note);
+        //COMMIT
+        long result = db.addDB(TBName,name,note);
+
+        if(result > 0){
+            nameText.setText("");
+            noteText.setText("");
+        }
+        else if( result == 0){
+
+
+            //Snackbar.make(nameText,"Unable To Save",Snackbar.LENGTH_SHORT).show();
+        }
 
         db.closeDB();
 
         //REFRESH
-        retrieve();
+        retrieve(TBName);
     }
 
     //RETREIEV
-    private void retrieve(){
+    private void retrieve(String TBName){
         list.clear();
 
         MyDatabase db = new MyDatabase(this);
         db.openDB();
 
         //RETRIEVE
-        Cursor c = db.getAll();
+        Cursor c = db.getAll(TBName);
 
         //LOOP AND ADD TO ARRAYLIST
         while (c.moveToNext()){
@@ -134,7 +145,6 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        retrieve();
+        retrieve(TBName);
     }
-
 }

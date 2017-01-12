@@ -2,7 +2,6 @@ package com.example.jackjou.whattoeat;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,16 +10,18 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 /**
- * Created by JackJou on 2016/12/1.
+ * Created by JackJou on 2017/1/6.
  */
 
 public class MainAdapter extends RecyclerView.Adapter<MyHolder>{
     Context c;
     ArrayList<FoodList> list;
+    String TBName;
 
-    public MainAdapter(Context c, ArrayList<FoodList> list) {
+    public MainAdapter(Context c, ArrayList<FoodList> list, String TBName) {
         this.c = c;
         this.list = list;
+        this.TBName = TBName;
     }
 
     //INITIALIZE VIEWHODER
@@ -56,10 +57,10 @@ public class MainAdapter extends RecyclerView.Adapter<MyHolder>{
                 i.putExtra("NAME",list.get(pos).getName());
                 i.putExtra("NOTE",list.get(pos).getNote());
                 i.putExtra("ID",list.get(pos).getId());
+                i.putExtra("TB",TBName);
 
                 //START ACTIVITY
                 c.startActivity(i);
-
             }
         });
 
@@ -69,5 +70,4 @@ public class MainAdapter extends RecyclerView.Adapter<MyHolder>{
     public int getItemCount() {
         return list.size();
     }
-
 }
