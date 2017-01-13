@@ -2,6 +2,7 @@ package com.example.jackjou.whattoeat;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -24,6 +25,9 @@ public class SettingsActivity extends AppCompatActivity {
     //數據適配器
     private MainAdapter mainAdapter;
     private String TBName;
+    private SharedPreferences sp;
+    private static final String data = "DATA";
+    private boolean empty = true;
 
     EditText nameText;
     EditText noteText;
@@ -54,7 +58,7 @@ public class SettingsActivity extends AppCompatActivity {
         mainAdapter = new MainAdapter(this, list, TBName);
 
         retrieve(TBName);
-        //save("美食坊","很油很多人");
+
     }
 
     //新增資料浮動視窗
@@ -125,9 +129,19 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         //CHECK IF ARRAYLIST ISNT EMPTY
-        if(!(list.size()<1)){
-            recyclerView.setAdapter(mainAdapter);
+        if(list.size() > 0){
+            empty = false;
+            sp = getSharedPreferences(data,0);
+            sp.edit().putBoolean("em", empty).commit();
         }
+        else{
+            empty = true;
+            sp = getSharedPreferences(data,0);
+            sp.edit().putBoolean("em", empty).commit();
+            Toast.makeText(SettingsActivity.this, String.valueOf(empty), Toast.LENGTH_SHORT).show();
+        }
+        Toast.makeText(SettingsActivity.this, String.valueOf(empty), Toast.LENGTH_SHORT).show();
+        recyclerView.setAdapter(mainAdapter);
 
         db.closeDB();
     }
