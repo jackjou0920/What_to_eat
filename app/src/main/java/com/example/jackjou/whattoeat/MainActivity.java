@@ -16,7 +16,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.aigestudio.wheelpicker.WheelPicker;
 
@@ -41,8 +40,6 @@ public class MainActivity extends AppCompatActivity
     private Runnable runnable2;
     private SharedPreferences sp;
     private static final String data = "DATA";
-    private int first = 0;
-    private boolean empty = true;
     private boolean halt;
     Thread thread;
 
@@ -79,11 +76,8 @@ public class MainActivity extends AppCompatActivity
         waittime();
         sp = getSharedPreferences(data,0);
         TBName = sp.getString("tb", "d_TB");
-        empty = sp.getBoolean("em", true);
-        //first = sp.getInt("status", 0);
 
-        Toast.makeText(MainActivity.this, TBName, Toast.LENGTH_SHORT).show();
-        setPickerData(wheelPicker);
+        retrieve(TBName);
     }
 
     @Override
@@ -132,27 +126,23 @@ public class MainActivity extends AppCompatActivity
             //first = 0;
             sp = getSharedPreferences(data,0);
             sp.edit().putString("tb", TBName).commit();
-            Toast.makeText(MainActivity.this, TBName, Toast.LENGTH_SHORT).show();
             setPickerData(wheelPicker);
         } else if (id == R.id.nav_home) {
             TBName = "d_TB2";
             sp = getSharedPreferences(data,0);
             sp.edit().putString("tb", TBName).commit();
-            Toast.makeText(MainActivity.this, TBName, Toast.LENGTH_SHORT).show();
             setPickerData(wheelPicker);
         } else if (id == R.id.nav_station) {
             TBName = "d_TB3";
             //first = 0;
             sp = getSharedPreferences(data,0);
             sp.edit().putString("tb", TBName).commit();
-            Toast.makeText(MainActivity.this, TBName, Toast.LENGTH_SHORT).show();
             setPickerData(wheelPicker);
         } else if (id == R.id.nav_ximending) {
             TBName = "d_TB4";
             //first = 0;
             sp = getSharedPreferences(data,0);
             sp.edit().putString("tb", TBName).commit();
-            Toast.makeText(MainActivity.this, TBName, Toast.LENGTH_SHORT).show();
             setPickerData(wheelPicker);
         }
         retrieve(TBName);
@@ -184,14 +174,15 @@ public class MainActivity extends AppCompatActivity
         }
 
         db.closeDB();
+        wheelPicker.setData(PickerData);
+        setPickerData(wheelPicker);
     }
 
     public void setPickerData(WheelPicker wheelPicker){
-        if(empty){
+        if(list.isEmpty()){
             PickerData.add("請輸入店家名稱");
             wheelPicker.setData(PickerData);
             count = PickerData.size();
-            Toast.makeText(MainActivity.this, TBName, Toast.LENGTH_SHORT).show();
         }
         else {
             PickerData.clear();
@@ -200,7 +191,7 @@ public class MainActivity extends AppCompatActivity
 
             //RETRIEVE
             Cursor c = db.getAll(TBName);
-            //Cursor cu = db.rawQuery("SELECT * FROM ",null);
+
             //LOOP AND ADD TO ARRAYLIST
             while (c.moveToNext()) {
                 //int id = c.getInt(0);
@@ -213,9 +204,8 @@ public class MainActivity extends AppCompatActivity
             }
             db.closeDB();
 
-            first = 0;
             sp = getSharedPreferences(data,0);
-            sp.edit().putString("tb", TBName).putInt("status", first).commit();
+            sp.edit().putString("tb", TBName).commit();
 
             wheelPicker.setData(PickerData);
             count = PickerData.size();
@@ -233,7 +223,6 @@ public class MainActivity extends AppCompatActivity
         wheelPicker.setAtmospheric(true);
         wheelPicker.setItemTextSize(100);
         wheelPicker.setCurtainColor(ContextCompat.getColor(this, R.color.white));
-        //wheelPicker.setCurtain(true);
 
     }
 

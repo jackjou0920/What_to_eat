@@ -27,7 +27,6 @@ public class SettingsActivity extends AppCompatActivity {
     private String TBName;
     private SharedPreferences sp;
     private static final String data = "DATA";
-    private boolean empty = true;
 
     EditText nameText;
     EditText noteText;
@@ -129,18 +128,7 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         //CHECK IF ARRAYLIST ISNT EMPTY
-        if(list.size() > 0){
-            empty = false;
-            sp = getSharedPreferences(data,0);
-            sp.edit().putBoolean("em", empty).commit();
-        }
-        else{
-            empty = true;
-            sp = getSharedPreferences(data,0);
-            sp.edit().putBoolean("em", empty).commit();
-            Toast.makeText(SettingsActivity.this, String.valueOf(empty), Toast.LENGTH_SHORT).show();
-        }
-        Toast.makeText(SettingsActivity.this, String.valueOf(empty), Toast.LENGTH_SHORT).show();
+
         recyclerView.setAdapter(mainAdapter);
 
         db.closeDB();
